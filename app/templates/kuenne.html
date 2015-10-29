@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div style='align:center; margin-top: 70px;'>
+    <h1>VIP Power User Panel</h1>
+    <h2>Welcome, {{ current_user.first_name }}!</h2>
+</div>
+
+<a href="{{ url_for('kuenne', is_csv=1) }}">Download CSV file for Mailchimp import</a>
+
+{% for id, ceo in ceos.iteritems() %}
+    <div style='margin-left: 50px; text-align: left;'>
+        Id: {{ ceo['id'] }}<br />
+        Name: {{ ceo['first_name'] }} {{ ceo['last_name'] }}<br />
+        Email: {{ ceo['email'] }}<br />
+        Title: {{ ceo.get('title') }}<br />
+        Company: {{ ceo.get('company') }}<br />
+        Email Domains: {{ ceo['main_email_domains'] }}<br />
+        Other Email Domains: {{ ceo['email_domains'] }}<br />
+        Status: <span style='background-color: {{ group_colors[ceo['group']] }}; color: #fff;'>{{ ceo['group'] }}</span><br />
+    </div>
+    <form action="{{ url_for('kuenne') }}" method='post' name="change_websites">
+        <table border='0px'>
+            <tr>
+                <th>Name</th>
+                <th>Headline</th>
+                <th>Title</th>
+                <th>Company Name</th>
+                <th>Website URL</th>
+                <th>Email Domains JSON</th>
+                <th>Company Linkedin Id</th>
+            </tr>
+            {% for job in ceo['jobs'] %}
+                <tr style='color: #fff; font-size: 15px;' bgcolor="{{ group_colors[job['group']] }}">
+                    <td>{{ ceo['first_name'] }} {{ ceo['last_name'] }}</td>
+                    <td>{{ job['headline'] }}</td>
+                    <td>{{ job['title'] }}</td>
+                    <td>{{ job['company_name'] }}</td>
+                    <td>{{ job['website_url'] }}</td>
+                    <!-- <td><input type='text' size='50' name='website_{{ job['company_id'] }}' value='{{ job['website_url'] if job['website_url'] else '' }}'></td> -->
+                    <td>{{ job['email_domains_json'] | truncate(10, True) if job['email_domains_json'] else None }}</td>
+                    <td>{{ job['company_linkedin_id'] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <p><input type='submit' value='Save edits for CEO {{ ceo['id'] }}'></p>
+    </form>
+{% endfor %}
+
+<a href="{{ url_for('kuenne', is_csv=1) }}">Download CSV file</a>
+
+<div style='margin-left: 50px;'>
+</div>
+
+{% endblock %}

@@ -1,0 +1,84 @@
+<html lang="en">
+  <head>
+    {% block head %}
+      <title>startupLinx</title>
+      <meta charset="utf-8">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <!-- Facebook open graph metatags -->
+      <meta property="og:title" content="startupLinx"/>
+      <meta property="og:image" content="{{ url_for('static', filename='img/discoverscreen_fb.jpg', _external=True) }}"/>
+      <meta property="og:site_name" content="startupLinx"/>
+      <meta property="og:description" content="Connect with Startups"/>  
+
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/modal.css') }}">
+      <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logogreen.gif') }}">
+
+      <!-- SUPPORT FOR IE6-8 OF HTML5 ELEMENTS -->
+      <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <![endif]-->
+
+      <script src="{{ url_for('static', filename='js/jquery-1.11.1.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/api_helpers.js') }}"></script>
+
+      <meta name="keywords" content="StartupLinx, startup, connect, find, job, linx">
+      <meta name="description" content="Connect with Startups">
+    {% endblock %}
+  </head>
+
+  <body class="generalresources">
+    
+    {% include 'google_anal_tag.html' %}
+
+    {% block header %}    
+		<div class="header">
+
+      <div class="headermargin">
+			       <div class="minilogo">
+                
+                <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/logo.gif') }}" class="headerlogo"></a>
+                <a href="{{ url_for('index') }}"><div class="homelink">
+                    Feed
+                </div></a>
+            </div>
+
+            <div class="navigationheader">
+                <a href="{{ url_for('articles') }}"><div class="resourceslink">
+                    Resources
+                </div></a>
+
+                <div class="logout">
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                </div>
+		       </div>
+
+       <a href="#openModal_feedback">
+           <div class="betafeedback">
+              startupLinx<sup>beta</sup> Feedback
+            </div></a>
+            {% include 'feedback_modal.html' %}
+		</div>
+    {% endblock %}
+
+    {% block content %}
+    {% endblock %}
+
+    {% block footer %}
+		<div class="footer"> 
+			<table class="footer">
+				<tr>
+					<td>
+                        <img class="footerlogo" src="{{ url_for('static', filename='img/logo.gif') }}">
+						<br><strong>startupLinx</strong><br><span class="subtitle">where talent meets startup</span><br><br><br>Copyright &#9400 2014 StartupLinx. Born and raised in San Francisco, California.</td>
+
+					<td><a href="{{url_for('about')}}">About</a><br><br><a href="#openModal_feedback">Contact Us</a><br><a href="#openModal_feedback">Feedback</a></td>
+				</tr>
+			</table>
+		</div>
+    {% endblock %}
+  </body>
+</html>
+

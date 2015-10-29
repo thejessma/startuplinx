@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div style='align:left; margin-top: 70px;'>
+    <h1>Viewing Campaign</h1>
+
+    <p>Created: {{ campaign.created }}</p>
+    <p>Name: {{ campaign.name }}</p>
+    <p>Sender: {{ campaign.sender_name }}</p>
+    <p>From Email: {{ campaign.sender_email }}</p>
+    <p>Is Ready: {{ campaign.is_ready }}</p>
+    <p>Subject Template: {{ campaign.subject_template }}</p>
+    <p>Body Template: {{ campaign.body_template }}</p>
+
+    <p align='center'><strong><a href="{{ url_for('edit_campaign', campaign_id=campaign.id) }}">Edit Campaign</a></strong></p>
+    <p align='center'><strong><a href="{{ url_for('list_campaigns') }}">List Campaigns</a></strong></p>
+</div>
+
+{% endblock %}

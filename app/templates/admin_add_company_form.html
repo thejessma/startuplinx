@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div style='align:left; margin-top: 70px;'>
+    <p><a href="{{ url_for('admin') }}">Back to Admin Panel</a></p>
+
+    <h1>Add New Company</h1>
+    <p>Make sure it doesn't already exist -- check <a href="{{ url_for('admin_all_companies') }}">the list of all companies</a></p>
+
+    <form action="" method="post" id="new_company_form">
+        <p>Company Linkedin Id: <input name="company_linkedin_id"></p>
+        <p>Company Name: <input name="company_name"></p>
+        <p>Crunchbase URL: <input name="company_crunchbase_url"></p>
+    </form>
+    <button id='add_company' onclick="addCompany()">Scrape & Add</button>
+    <p id='waiting' hidden>Waiting... Company is being scraped... </p>
+</div>
+
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+
+{% endblock %}

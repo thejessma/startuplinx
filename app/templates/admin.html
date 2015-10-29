@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+	
+<div style='align:center; margin-top: 70px;'>
+    <h1>Admin Panel</h1>
+    <h2>Logged in as {{ current_user.name }}</h2>
+    <h3>Welcome to the danger zone. With great power comes great responsibility. You've had your caution...</h3>
+</div>
+
+<div style='margin-left: 50px;'>
+    <p align='left'><button id="admin_mode" onclick='toggleAdminMode()'>Turn {% if session.get('admin_mode') %}Off{% else %}On{% endif %} Admin Mode</button> </p>
+    <p align='left'><button id="create_db" onclick='createDatabase()'>Create DB</button> </p>
+    <p align='left'><button id="rescrape_all_companies" onclick='rescrapeAllCompanies()'>Rescrape Companies</button> </p>
+    <p align='left'><button id="rescrape_all_companies_from_url" onclick='rescrapeAllCompaniesFromUrl()'>Rescrape Companies From URLs</button> </p>
+    <p align='left'><button id="soft_rescrape_all_companies" onclick='softRescrapeAllCompanies()'>Soft Rescrape Companies</button> </p>
+    <p align='left'><button id="rescrape_all_user_images" onclick='rescrapeAllUserImages()'>Rescrape User Images</button> </p>
+    <p align='left'>
+        Login as: 
+        <select id="login_as_users">
+            {% for user in users %} 
+            <option value="{{ user.id }}">{{ user.name }}</option>
+            {% endfor %}
+        </select>
+        <button id="login_as" onclick='loginAsUser()'>Switch</button> 
+    </p>
+    <p align='left'><a href="{{ url_for('admin_dashboard') }}">Dashboard</a></p>
+    <p align='left'><a href="{{ url_for('admin_all_companies') }}">List All Companies</a></p>
+    <p align='left'><a href="{{ url_for('admin_add_company_form') }}">New Company</a></p>
+    <p align='left'><a href="{{ url_for('admin_add_article_form') }}">New Resource</a></p>
+</div>
+
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+
+{% endblock %}

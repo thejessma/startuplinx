@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div style='align:center; margin-top: 70px;'>
+    <h1>Messages</h1>
+</div>
+
+<div style='margin-left: 50px;' align='left'>
+  {% for message in messages %}
+      Date: {{ message['created'] }} <br/>
+      From: <strong>{{ message['sender_name'] }}</strong><br/>
+      To: <strong>{{ message['recipient_name'] }}</strong><br/>
+      Subject: {{ message['subject'] }}<br/>
+      {{ message['body'] }}<br/><br/><br/>
+  {% endfor %}
+</div>
+
+{% endblock %}

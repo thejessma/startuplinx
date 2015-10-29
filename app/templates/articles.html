@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="resourceswhiteheader">
+
+    <div class="resourcestitle">
+
+    <p>
+        Guides and Resources
+    </p>
+
+    <div class="resourcesline">
+    </div>
+
+    <p class="resourcessubtitle">
+        We've linxed together the most helpful guides on the web to help you navigate the search process and find a startup role that genuinely speaks to your skills and interests.
+    </div>
+
+</div>
+
+<div class="resourcesbodywrapper">
+
+    <a href="{{ url_for('feed', _anchor='introModal') }}">
+    
+    <div class="resourcearticlebox">
+
+    <div class="resourcebackground" style="background-image: url({{ url_for('static', filename='img/logo.gif') }})">
+    </div>  
+
+    <div class="resourcebackgroundcover">
+    </div>
+
+
+        <div class="resourcecategory">
+            <div class="resourcetime">
+                LINX
+            </div>
+
+            <div class="resourcetime" style="float:right">
+                *
+            </div>
+        </div>
+
+        <div class="resourceline">
+        </div>
+
+        <div class="resourcetext">
+            <div class="resourcetitle">
+                startupLinx Introduction Tour
+            </div>
+
+            <div class="resourcesubtext">
+                2 minute read
+            </div>
+        </div>
+
+        <div class="resourceauthor">
+            The Linx Team
+        </div>
+    </div>
+
+</a> 
+
+{% for article in articles: %}
+ <a href="{{ article.url }}" target="_blank">
+    
+    <div class="resourcearticlebox">
+
+    {% if article.image_url %}
+        <div class="resourcebackground" style="background-image: url({{ article.image_url }})">
+        </div>
+    {% endif %}
+
+    <div class="resourcebackgroundcover">
+    </div>
+
+
+        <div class="resourcecategory">
+            <div class="resourcetime">
+                LINX
+            </div>
+
+            <div class="resourcetime" style="float:right">
+                *
+            </div>
+        </div>
+
+        <div class="resourceline">
+        </div>
+
+        <div class="resourcetext">
+            <div class="resourcetitle">
+                {{ article.title }}
+            </div>
+
+            <div class="resourcesubtext">
+                {{ article.mins_to_read }} minute read
+            </div>
+        </div>
+
+        <div class="resourceauthor">
+            {{ article.author_name }}
+        </div>
+    </div>
+
+</a> 
+
+    {% endfor %}
+
+
+<!-- <a href="#introModal">
+        <div class="resourcesbody">
+            <table class="resourcetable">
+                <tr>
+
+                    <td class="imgcol">
+                        <img src="{{ url_for('static', filename='img/logogreen.gif') }}" class="authorimg">
+                    </td>
+                    <td class="titlecol"> 
+                        <p class="articletitle">startupLinx Tour</p>
+                        <p class="articlesubtitle">How to Use startupLinx</p>
+                    </td>
+                    <td class="authorcol">
+                        
+                        <p class="authorname">The Linx Team</p></td>
+                </tr>
+            </table>
+        </div>
+    </a>
+
+{% for article in articles: %}
+    <a href="{{ article.url }}" target="_blank">
+        <div class="resourcesbody">
+            <table class="resourcetable">
+                <tr>
+
+                    <td class="imgcol">
+                        {% if article.image_url %}<img class="authorimg" src="{{ article.image_url }}">{% endif %}
+                    </td>
+                    <td class="titlecol"> 
+                        <p class="articletitle">{{ article.title }}</p>
+                        <p class="articlesubtitle">{{ article.subtitle }}<br>
+                        {{ article.mins_to_read }} minute read</p>
+                    </td>
+                    <td class="authorcol">
+                        
+                        <p class="authorname">{{ article.author_name }}</p></td>
+                </tr>
+            </table>
+        </div>
+    </a>
+    {% endfor %}-->
+
+</div>
+
+{% endblock %} 

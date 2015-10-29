@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div style='align:left; margin-top: 70px;'>
+    <p><a href="{{ url_for('admin') }}">Back to Admin Panel</a></p>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul style='background-color: red;'>
+        {% for message in messages %}
+          <li>Error: {{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <h1>Add New Resource</h1>
+
+    <form method="POST" action="{{ url_for('admin_add_article_form') }}">
+        {{ form.hidden_tag() }}
+        {% for field in form %}
+            {{ field.label }} {{ field }}<br>
+        {% endfor %}
+        <input type="submit" value="Save">
+    </form>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+
+{% endblock %}

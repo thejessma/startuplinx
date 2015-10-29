@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- TODO these should be in the head... I suppose -->
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/slider/normalize.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/slider/ion.rangeSlider.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/slider/ion.rangeSlider.skinFlat.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/animate.css') }}">
+
+<!-- order here matters! also, check base.html for what's included there -->
+<script src="{{ url_for('static', filename='js/waypoints.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/slider/ion.rangeSlider.js') }}"></script>
+<script src="{{ url_for('static', filename='js/watermarkinput.js') }}"></script>
+<script src="{{ url_for('static', filename='js/feed.js') }}"></script>
+		
+<div class="mainbody">
+</div>
+
+{% if show_intro: %}
+    <script> location.href="#introModal"; </script>
+{% endif %}
+
+<div class="resourceswhiteheader">
+	<div class="resourcestitle">
+        <a href="#introModal">
+            <p>Your Linx Feed</p>
+        </a>
+
+        <div class="resourcesline">
+        </div>
+
+        <p class="resourcessubtitle">
+            Browse through your personalized feed of startups. Anything catch your eye? Click to view company profiles and connect through your friends!
+        </p>
+    </div>
+</div>
+
+
+
+<div class="feed">
+    <div class="filtertoggle">
+        <div class="feedfilter">
+            <table class="recHelp">
+                <tr>
+                    <td> 
+                        {% include 'filters.html' %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="filterhide">
+            hide
+        </div>
+        <div class="filterhidetop">
+            filter
+        </div>
+    </div>
+
+    <div class="limited_offer">
+
+        <div class="limited_title">
+            BE <strong style="font-weight:400">&nbsp;&nbsp;BOLD&nbsp;&nbsp;</strong> CHALLENGE
+        </div>
+
+        <div class="limited_img">
+            <img src="{{ url_for('static', filename='img/ahripostcard.png') }}" class="ahripostcard">
+        </div>
+        
+        <div class="limited_text">
+            Get linxed with <strong>five</strong> startups by <u>March 20</u>! Simply drop a note to a friend to learn more about their company and ask for a quick intro. To celebrate, we'll give you a bonus push by sending your resume <strong>directly to the CEO's!</strong><br><br>In addition, you will be entered in a random draw for an hour of <strong>free coaching</strong>!<br>
+
+            <div class="limited_start">
+                START NOW
+            </div> 
+
+        </div>
+
+        <div class="limited_close">
+            x
+        </div>
+        
+
+    </div>
+
+    {% include 'companies_vertical.html' %}
+
+    <!--
+    {% if pending_count > 0 %}
+        <a href=".">
+            <div class="refresh">
+                More connections have been linxed for you - Click here to load!
+            </div>
+        </a>
+    {% endif %}
+    -->
+
+    <a href="{{ url_for('articles') }}">
+    <div class="recHelp">
+        <table class="recHelp">
+            <tr>
+                <td>
+                    <strong>Additional Startups</strong>
+                </td>
+                <td>
+                    <p class="recHelp">Not enough LinkedIn connections? We curated additional high growth startups for you to browse! Check back in the future for guides on how to reach out to the startup team.</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </a>
+
+</div> <!-- feed -->
+
+<div class="feedRecommendations">
+
+	
+
+    {% set companies_vertical = vetted_companies_vertical %}
+    {% set is_vetted_startups_section = True %} 
+    {% include 'companies_vertical.html' %}
+
+</div> <!-- feedRecommendations -->
+
+{% include 'carousel.html' %}
+
+{% endblock %}

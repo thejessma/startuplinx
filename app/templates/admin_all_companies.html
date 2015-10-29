@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div style='align:center; margin-top: 70px;'>
+    <p><a href="{{ url_for('admin_all_companies') }}">Clear All Params</a></p>
+    <p>
+        <form action="{{ url_for('admin_all_companies') }}" name="search_form">
+            {% if search_term %}
+                <input type='hidden' name='order_by' value='{{ order_by }}'>
+                <input type='hidden' name='type' value='{{ order_by_type }}'>
+                <input type='hidden' name='limit' value='{{ limit }}'>
+                <input type='hidden' name='offset' value='{{ offset }}'>
+            {% endif %}
+            <input type='text' size='50' name='search_term'>
+            <input type='submit' value='Search'>
+        </form>
+    </p>
+
+    <table>
+        <tr>
+            {% set columns=[
+                   'id',
+                   'remote_id',
+                   'linkedin_id',
+                   'name',
+                   None,
+                   'crunchbase_data',
+                   'is_startup',
+                   'is_vetted',
+                   'rating'
+               ] %}
+                <th>[x]</th>
+            {% for column in columns: %}
+                {% if column %}
+                    {% if order_by == column %}
+                        {% if order_by_type == 'desc' %} 
+                            <th><a href="{{ url_for('admin_all_companies', order_by=column, limit=limit, offset=offset, search_term=search_term) }}">{{ column | title }} &#8593;</a></th>
+                        {% else %}
+                            <th><a href="{{ url_for('admin_all_companies', order_by=column, type='desc', limit=limit, offset=offset, search_term=search_term) }}">{{ column | title }} &#8595;</a></th>
+                        {% endif %}
+                    {% else %}
+                        <th><a href="{{ url_for('admin_all_companies', order_by=column, limit=limit, offset=offset, search_term=search_term) }}">{{ column | title }}</a></th>
+                    {% endif %}
+                {% else %}
+                   <th>View</th>
+                   <th>Edit</th>
+                   <th>Ppl</th>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        <script> var companies = new Array(); </script>
+        {% for company in companies %}
+        <tr>
+            <td><input type="checkbox" name="selected_company" id="selected_company_{{ company.id }}" value="{{ company.id }}"></td>
+            <td>{{ company.id }}</td>
+            <td>{{ company.remote_id }}</td>
+            <td>{{ company.linkedin_id | truncate(10, True) }}</td>
+            <td>{{ company.name }}</td>
+            <td><a href="{{ url_for('profile', company_id=company.id) }}">view</a></td>
+            <td><a href="{{ url_for('admin_edit', company_id=company.id) }}">edit</a></td>
+            <td>{{ company.positions | length }}</td>
+            <td>{{ company.crunchbase_data != None }}</td>
+            <td>{{ company.is_startup }}</td>
+            <td>{{ company.is_vetted }}</td>
+            <td>{{ company.rating }}</td>
+            <script> companies[{{ company.id }}] = "{{ company.id }} | {{ company.name }} | {{ company.linkedin_id }}"; </script>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div id="openModal_mergeCompanies" class="modalDialog">
+        <div>
+            <a href="#close" title="Close" class="close">X</a>
+            <form action="" method="post" id="mergeCompanies_form">
+                <h1>Pick the mother company.</h1>
+                <p>WARNING: All other companies will be deleted and people's positions that map to them will be remapped to the mother company. This operation cannot be undone. Make sure you know what you're doing.</p>
+                Mother company: <select id="mother_company"></select>
+            </form>
+            <p><button id='merge_em' onclick="mergeCompanies()">Merge 'em!</button></p>
+        </div>
+    </div>
+
+    <p>
+        <button id='merge_companies' onclick="mergeCompaniesDialog()">Merge</button> | 
+        <button id='rescrape_companies_list' onclick="rescrapeList()">Rescrape</button> |
+        <button id='soft_rescrape_companies_list' onclick="softRescrapeList()">Soft Rescrape</button>
+    </p>
+    <p>
+        <a href="{{ url_for('admin_all_companies', order_by=order_by, type=order_by_type, limit=limit, offset=0, search_term=search_term) }}">First Page</a> | 
+        {% if offset-limit >= 0 %}
+        <a href="{{ url_for('admin_all_companies', order_by=order_by, type=order_by_type, limit=limit, offset=offset-limit, search_term=search_term) }}">Prev Page</a> | 
+        {% endif %}
+        <a href="{{ url_for('admin_all_companies', order_by=order_by, type=order_by_type, limit=limit, offset=offset+limit, search_term=search_term) }}">Next Page</a>
+    </p>
+    <p>
+        {% if limit >= 10 %}
+        <a href="{{ url_for('admin_all_companies', order_by=order_by, type=order_by_type, limit=limit / 2, offset=offset, search_term=search_term) }}">Show Less</a> |
+        {% endif %}
+        <a href="{{ url_for('admin_all_companies', order_by=order_by, type=order_by_type, limit=limit * 2, offset=offset, search_term=search_term) }}">Show More</a> |
+        <a href="{{ url_for('admin_all_companies', order_by=order_by, type=order_by_type, limit=1000000, offset=0, search_term=search_term) }}">Show All</a>
+    </p>
+    <p align='center'><a href="{{ url_for('admin_add_company_form') }}">New Company</a></p>
+</div>
+
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+
+{% endblock %}

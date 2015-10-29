@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+	
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+<div style='align:center; margin-top: 70px;'>
+    <h1>Admin Dashboard</h1>
+</div>
+
+<div style='margin-left: 50px;' align='left'>
+    <p>Total: <strong>{{ users | length }} registered users</strong></p>
+    <p>Total: <strong>{{ messages | length }} messages sent</strong> <a href='{{ url_for('admin_messages') }}'>[view]</a></p>
+    Event totals: <br/>
+    <div style='margin-left: 30px;'>
+        {% for type, events in daily_events.iteritems() %} 
+        {{ type | title }}: {{ events['data'] | sum }}<br/>
+        {% endfor %}
+    </div>
+    <div id="container" style="width: 800px; height: 400px; margin: 0 auto"></div>
+</div>
+
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+
+<script>
+ $('#container').highcharts({
+        chart: {
+            zoomType: 'x'
+        },
+        title: {
+            text: 'Events'
+        },
+        subtitle: {
+            text: document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' :
+                    'Pinch the chart to zoom in'
+        },
+        xAxis: {
+            type: 'datetime',
+            minRange: {{ daily_events['home']['data'] | length }} * 24 * 3600000, // len(data) days
+            title: {
+                text: 'day'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        yAxis: {
+            title: {
+                text: 'Number of events each day'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        plotOptions: {
+        },
+        series: [
+            {% for type, events in daily_events.iteritems() %} 
+            {
+                name: '{{ type | title }}',
+                pointInterval: 24 * 3600000, // a day
+                pointStart: {{ events['pointStart'] }},  //Date.UTC(2006, 0, 1),
+                data: [ {{ events['data'] | join(', ') }}  ]
+            },
+            {% endfor %}
+        ]
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+<div class="filters">
+    <p>
+         <div class="filterbox">
+            TOTAL FUNDING
+            <input type="hidden" id="filter_funding" name="filter_funding" value="" />
+        </div>
+   
+        <div class="filterbox">
+            COMPANY SIZE
+            <input type="hidden" id="filter_team_size" name="filter_team_size" value="" />
+        </div>
+
+      <div class="filterbox">
+            YEAR
+            <input type="hidden" id="filter_founded_year" name="filter_founded_year" value="" />
+        </div>
+
+   <div class="filterbox">
+            FUNDING ROUND
+            <input type="hidden" id="filter_series" name="filter_series" value="" />
+        </div>
+        <br><br>
+        <div class="filterbox" style="width:auto">
+            LOCATION
+        </div>
+
+        <div class="locationinput">
+            <input size=40 type="text" id="filter_location" name="filter_location" value="" />
+        </div>
+
+        <div class="filterbox" style="width:auto">
+           STARRED
+        </div>
+
+
+        <div class="filterstar">
+            <div class="unfavorite" id="filter_unfavorite" name="filter_unfavorite" hidden>
+
+                <div class="star">
+                    <img class="starfilled" src="{{ url_for('static', filename='img/starfilled.gif') }}">
+                </div>
+                <div class="staroutline">
+                    <img class="star" src="{{ url_for('static', filename='img/staryello.gif') }}">
+                </div>
+            </div>
+
+            <div class="favorite" id="filter_favorite" name="filter_favorite"> 
+                <div class="star">
+                    <img class="star" src="{{ url_for('static', filename='img/star.gif') }}">
+                </div>
+                <div class="staryellow">
+                    <img class="star" src="{{ url_for('static', filename='img/starfilled.gif') }}">
+                </div>
+            </div>
+        </div>
+
+    </p>
+</div>
+

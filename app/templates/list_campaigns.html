@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div style='align:center; margin-top: 70px;'>
+    <h1>Email and Linkedin Message Campaigns</h1>
+    <h2>Welcome, {{ current_user.first_name }}!</h2>
+</div>
+
+<table>
+    <tr>
+        <th>Created</th>
+        <th>Name</th>
+        <th>Sender</th>
+        <th>From Email</th>
+        <th>Is Ready</th>
+        <th>[view]</th>
+        <th>[edit]</th>
+    </tr>
+    {% for campaign in campaigns %}
+    <tr>
+        <td>{{ campaign.created }}</td>
+        <td>{{ campaign.name }}</td>
+        <td>{{ campaign.sender_name }}</td>
+        <td>{{ campaign.sender_email }}</td>
+        <td>{{ campaign.is_ready }}</td>
+        <td><a href="{{ url_for('view_campaign', campaign_id=campaign.id) }}">[view]</a></td>
+        <td><a href="{{ url_for('edit_campaign', campaign_id=campaign.id) }}">[edit]</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+<p align='center'><strong><a href="{{ url_for('new_campaign') }}">New Campaign</a></strong></p>
+
+{% endblock %}

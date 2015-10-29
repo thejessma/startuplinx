@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+{% block content %}
+	
+{% if current_user.is_admin and session.get('admin_mode') %}
+<div style='background-color: gray; margin-top: 50px;'>
+    <h2>Admin Zone</h2>
+    <p>
+        <a href="{{ url_for('admin') }}">Admin Panel</a> |
+        <a href="{{ url_for('admin_edit', company_id=company['id']) }}">Edit Basic Fields</a> |
+        <a href="{{ url_for('admin_edit', company_id=company['id'], edit_mode='advanced') }}" onclick="return confirm('Bear, you might break something. Are you sure you wanna do this?')">Edit Advanced Fields</a>
+    </p>
+{% endif %}
+
+<div class="resourceswhiteheader">
+
+    <a href="{{ company['website_url'] }}" target="_blank">
+        <div class="profiletitle">
+            <div class="profileicon">
+                <img class="startupprofile" src="{{ company['logo_url'] }}">
+            </div>
+
+            <div class="profilename">
+                {{ company['name']}}<br>
+            </div>
+            <div class="social">
+        <a href="{{ company['linkedin_url'] }}" target="_blank"> <img class="social" src="http://static.wixstatic.com/media/c1e45c03ec6adc0369febb7b449e7c61.wix_mp_srz_p_28_28_85_22_0.50_1.20_0.00_wix_mp_srz"> </a>
+
+
+    </div>
+     
+        </div>
+
+    
+    </a>
+
+    <div class="profileline">
+    </div>
+
+
+
+    <div class="profilesubtitle">
+    	        <div class="profilelocation">{{ company['headquarters'] }}</div>
+       <div class="profilefriends">
+       	{% include 'friends_profpics.html' %}
+       </div>
+
+       <div class="linxedbutton">
+			Get Linxed
+		</div>
+
+   </div>
+   
+    </div>
+
+
+<div class="companyProfile">
+
+	<div class="mission">
+			<strong class="title"> Mission </strong> <br> <br>
+			{{ company['description'] | safe }}
+	</div>
+
+	<br>
+	
+	<div class="growth">
+		<strong class="title"> Investments </strong> <br> <br>
+		<div>
+			<table class="investmenttable">
+				{% for funding_round in company['funding_rounds'] %}
+				<tr>
+					<th>Series {{ funding_round['series'] }}</th>
+					<td>{{ funding_round['amount'] }}</td>
+					<td>
+						{% for investor in funding_round['investors'] %}
+							{{ investor }}<br>
+						{% endfor %}
+					</td>
+					<td>{{ funding_round['year'] }}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div> <!-- growth -->
+
+	<br>
+
+	<div class="people">
+		<strong class="title"> The Team </strong> <br> <br>
+
+
+
+		<div class="growthmetrics">
+			<strong class="number">{{ company['employees'] }}</strong><br>
+			{% if company['employees'] %} employees {% endif %}
+		</div>
+
+ 
+
+
+		{% for member in company['team'] %}
+                <div class="employee">
+                    <div class="employeephotowrapper">
+                        <img class="employeephoto" src="{{ member['photo_url'] }}">
+                    </div>
+                    <p class="employeename">
+                        <strong class="employeename">{{ member['name'] }}</strong><br>
+                        <em>{{ member['title'] }}</em>
+                    </p>
+                    {% if member['bio'] %}
+                        <!-- hidden / pop-up -->
+                        <div class="teampopup">
+                            <h3>{{ member['name'] + ' -- ' + member['title'] }}</h3>  
+                        </div>
+
+                        <div class="employeetoptext" style="font-size:12px">
+                            <p>{{ member['truncated_bio'] | safe }}</p>
+                        </div>
+                    {% endif %}
+                </div>
+		{% endfor %}	
+	
+	</div> <!-- people -->
+
+    {% if company['articles'] | length > 0 %}
+	<div class="techcrunch">
+		<strong class="title"> News & Headlines </strong> <br> <br>
+        {% for article in company['articles'] %}
+            <div class="article">
+                <a href="{{ article['url'] }}">
+                    <div class="articleheadline">{{ article['title'] | safe }}<br>
+                        <em style="font-size:14px">{% if article['posted_on'] %} {{ article['posted_on'] }}{% endif %}</em>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+	</div> <!-- techcrunch -->
+    {% endif %} 
+
+    {% if company['friends'] | length > 0 %}
+	<a name="Connect"> </a>
+	<br>
+	<div class="connect">
+		<strong class="title"> Your Linx </strong><br> <br>
+
+		{% for friend in company['friends'] %}
+			<a href="#openModal_{{ friend['id'] }}">
+			<div class="employeefriend">
+
+				<div class="employeephotowrapper">
+				<img class="employeephoto" src="{{ friend['picture_url'] }}">
+
+			</div>
+				<p class="employeename">
+					<strong class="employeename">{{ friend['name'] }}</strong><br>
+                    <em>{{ friend['position'] }}</em>
+				</p>
+				<div class="degree">
+					1st
+				</div>
+			</div>
+			</a>
+		{% endfor %}
+
+		{% for friend in company['friends'] %}
+            <div id="openModal_{{ friend['id'] }}" class="modalDialog">
+                <div>
+                    <form action="" method="post" id="messageFormTo_{{ friend['id'] }}">
+                        <img src="{{ url_for('static', filename='img/logo.gif') }}" class="modalbkgdprofile">
+                        <a href="#close" title="Close" class="close">X</a>
+                        <h2 class="modalTitle">LinkedIn message to {{ friend['name'] }}</h2>
+                        <p class="modalText">Tip: personalize the message by referencing something that connects you with {{ friend['first_name']  }}: a past experience, a hobby, an ongoing project, etc.</p>
+                        <p class="modalText">Subject: <input name="subject" size="65" value="Regarding your work at {{ company['name'] }}"> </p>
+                        <p>
+                        <textarea class="modaltextarea" name='body' rows="10" cols="70">Hi {{ friend['first_name'] }},
+
+I hope you're doing well! I was browsing through startuplinx.co and I noticed that you were affiliated with {{ company['name'] }}. It sounds like a really exciting place to work!
+
+I am currently looking for job opportunities and I was wondering if you could tell me more about {{ company['name'] }} or refer me to someone at {{ company['name'] }}? I would really appreciate it.
+
+All the best,
+{{ current_user.first_name }}
+                        </textarea></p>
+                    </form>
+                    <p>
+                        <button class="buttonmodal" id="send_{{ friend['id'] }}" onclick="
+                            sendLinkedinMessage({{ friend['id'] }}, 'messageFormTo_{{ friend['id'] }}')">
+                            Send</button>
+                    </p>
+                    <p class="modalText">Clicking "Send" will send the above message to {{ friend['name'] }} on your behalf on LinkedIn.</p>
+                </div>
+            </div>
+		{% endfor %}
+<!--		<div class="helpconnect">
+
+		<strong style="color:white">Click on a friend to drop a note! </strong>Connections are more than happy to make an introduction or refer you in the right direction!
+
+	</div>-->
+	</div>  <!-- connect -->
+    {% endif %} <!-- if friends -->
+		
+
+</div> <!-- companyProfile -->
+
+    <script src="{{ url_for('static', filename='js/jquery-1.11.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/waypoints.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+
+{% endblock %}

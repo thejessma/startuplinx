@@ -1,0 +1,185 @@
+{% for vertical_id in range(4) %}
+	<!--This div.vertical is a column. The first column-->
+    <div class="vertical">
+    {% set row_id = 0 %}
+
+    {% for (startup_points, _, id, company) in companies_vertical[vertical_id] %}
+
+        {% set row_id = row_id + 1 %}
+        {% if row_id == ahri_row and vertical_id == ahri_column and not is_vetted_startups_section %}
+            <!--AHRI OBJECT-->
+            <div class="startupwrapperahri">
+
+                <a href="{{url_for('about')}}">
+                <div class="startupahri">
+                    
+                    <div class="startupinfo">
+
+                        <img src="{{ url_for('static', filename='img/ahrivertical.gif') }}" class="ahrivertical">
+
+                    </div>
+
+                </div>
+                </a>
+            </div>
+            <!--end Ahri-->
+        {% endif %}
+
+        <div class="startupwrapper" id="company_wrapper_{{ company['id'] }}">
+
+            <div class="unfavorite" {% if not company['is_favorited'] %} hidden{% endif %} onclick="removeFavorite({{ company['id'] }})">
+
+                <div class="star">
+                    <img class="starfilled" src="{{ url_for('static', filename='img/starfilled.gif') }}">
+                </div>
+                <div class="staroutline">
+                    <img class="star" src="{{ url_for('static', filename='img/staryello.gif') }}">
+                </div>
+            </div>
+
+            <div class="favorite" {% if company['is_favorited'] %} hidden{% endif %} onclick="addFavorite({{ company['id']}})">
+                <div class="star">
+                    <img class="star" src="{{ url_for('static', filename='img/star.gif') }}">
+                </div>
+                <div class="staryellow">
+                    <img class="star" src="{{ url_for('static', filename='img/starfilled.gif') }}">
+                </div>
+            </div>
+
+        
+            <a href="{{ url_for('profile', company_id=company['id']) }}">
+                <!--This div.startup is a gray box for the startup-->
+                <div class="startup">
+                    <input type="hidden" class="is_favorited" value="{{ company['is_favorited'] }}">
+
+                    <div class="startupinfo">
+
+                        {% if not is_vetted_startups_section %}
+                            <div class="space">
+                        {% else %}
+                            <div class="spacerec">
+                        {% endif %}
+
+                            <div class="text">
+
+                                <span class="location">{{ company['headquarters'] }}</span>
+                                <input type="hidden" class="headquarters_json" value="{{ company['headquarters_json'] }}">
+                                {% if company['founded_on_year'] %}
+                                  <span class="yearfounded">{{ company['founded_on_year'] }}</span>
+                                {% endif %}
+                                <input type="hidden" class="yearfoundedvalue" value="{{ company['founded_on_year'] }}">
+                                
+                                <span class="employees">{{ company['employees'] }}
+                                    {% if company['employees'] %} employees {% endif %}
+                                    <input type="hidden" class="employees_min" value="{{ company['employees_min'] }}">
+                                    <input type="hidden" class="employees_max" value="{{ company['employees_max'] }}">
+                                </span>
+                                
+                                <div class="fundinground">
+                                    <div class="verticaltext">
+                                        Last Round
+                                    </div>
+                                    <div class="fundingroundtext">
+                                        <span class="seriesround">
+                                            {% if company['latest_funding_series'] %}
+                                            Series
+                                            {% endif %}
+                                            <br>
+                                        </span>
+                                        {{ company['latest_funding_series'] }}
+                                        <input type="hidden" class="latest_series_value" value="{{ company['latest_funding_series_value'] }}">
+                                    </div>
+                                </div>
+
+                                <div class="totalfunding">
+                                    <div class="verticaltext">
+                                        Total Funding
+                                    </div>
+                                    <div class="totalfundingtext">
+                                        {{ company['total_funding'] }}
+                                    </div>
+                                    <input type="hidden" class="totalfundingvalue" value="{{ company['total_funding_numeric'] }}">
+                                </div>
+
+                                <div class="investors">
+                                    <div class="verticaltext">
+                                        Investors
+                                    </div>
+                                    <div class="investorstext">
+                                        {% for investor in company['investors'] %}
+                                        {{ investor }}<br>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div> <!-- text div -->
+
+                            <!--This img.startup is the image for the startup with fixed width-->
+                            <div class="logowrapper">
+                                <span class="helper"></span><img class="startup" src="{{ company['logo_url'] }}">
+                            </div>
+
+                            <!--This strong.name is the title of the startup-->
+                            <strong class="name">{{ company['name'] }}</strong> <br>
+                        
+                            <!--This is where the description of the startup goes-->
+                            <div class="startuptext">
+                                <p class="startup">{{ company['summary'] }}</p>
+                            </div>
+
+                        </div> <!-- space div -->
+
+                    </div>  <!-- startup info div -->
+
+           
+                    {% if not is_vetted_startups_section %}
+                        <!-- only non-vetted startups have this -->
+                        <div class= "loadinglinestartups" style="width:200px"> 
+                        </div> 
+
+                        <!--This is where the image src of some friends goes. We have 4 friends-->
+                        <div class="friends">
+                            {% include 'friends_profpics.html' %}
+                        </div>
+
+                        <!--This is where the names of 3 friends plus n-3 number of friends goes-->
+                        {% if company['friends'] | length > 0 %}
+                            <div class="friends">
+                                {% set friend_idx = 0 %}
+                                {% for friend in company['friends'] %}
+                                    {% set friend_idx = friend_idx + 1 %}
+                                    {% if friend_idx == 4 and company['friends']|length > 4 %}
+                                        {{ company['friends']|length - 3 }} more
+                                        {% break %}
+                                    {% else %}
+                                        {{ friend['name'] }}{% if (friend_idx == 3 and company['friends']|length > 3) or friend_idx == company['friends']|length - 1 %}
+                                            and
+                                        {% elif friend_idx < company['friends']|length %},
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if company['friends']|length == 1 %}
+                                    has
+                                {% else %}
+                                    have
+                                {% endif %}
+                                worked here. <br> </br>
+
+                                <!--This is the connect button - needs to be linked-->
+                                
+                                <a href="{{ url_for('profile', company_id=company['id'], _anchor='Connect')}}"><div class="connectbutton">
+                                        Get Linxed
+                                </div></a>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                       <!-- if vetted companies, have this bogus diff to stretch the rectangle -->
+                       <div class="friendsrec"></div>
+                    {% endif %}
+
+                </div> <!-- startup div -->
+            </a>   <!-- startup link -->
+        </div> <!-- startup wrapper div -->
+    {% endfor %} <!-- startup loop -->
+
+    </div>
+{% endfor %} <!-- vertical -->

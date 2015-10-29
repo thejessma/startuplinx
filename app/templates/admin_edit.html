@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div style='align:left; margin-top: 70px;'>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul style='background-color: red;'>
+        {% for message in messages %}
+          <li>Error: {{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <p><a href="{{ url_for('admin') }}">Back to Admin Panel</a></p>
+
+    <h1>Edit company {{ company.name }}</h1>
+    <h2>Id: {{ company.id }}</h2>
+    <h2>{{ edit_mode }} mode</h2>
+
+    <form method="POST" action="{{ url_for('admin_edit', company_id=company.id, edit_mode=edit_mode) }}">
+        {{ form.hidden_tag() }}
+        {% for field in form %}
+            {{ field.label }} {{ field }}
+            <br>
+        {% endfor %}
+        {% if edit_mode == 'advanced' %}
+            <input type="checkbox" id="do_rescrape_from_url" name="do_rescrape_from_url" value="y">Rescrape from Crunchbase URL<br>
+        {% endif %} 
+        <input type="submit" value="Save">
+    </form>
+
+    {% if edit_mode == 'advanced' %}
+        <p><a href="{{ url_for('admin_edit', company_id=company.id, edit_mode='basic') }}">Switch to Basic Mode</a></p>
+    {% else %}
+        <p><a href="{{ url_for('admin_edit', company_id=company.id, edit_mode='advanced') }}">Switch to Advanced Mode</a></p>
+    {% endif %} 
+
+</div>
+
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+
+{% endblock %}

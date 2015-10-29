@@ -1,0 +1,20 @@
+<div id="openModal_feedback" class="modalDialog">
+  <div>
+    <form action="" method="post" id="feedbackForm">
+        <img src="{{ url_for('static', filename='img/logo.gif') }}" class="modalbkgdprofile">
+        <a href="#close" title="Close" class="close">X</a>
+        <h2 class="modalTitle">startupLinx<sup>beta </sup>Feedback</h2>
+        <p class="modalText">Really harsh feedback is extremely appreciated! What should we fix? What features do you wish Linx could have? We want to create an awesome experience for you - please let us know how!</p>
+        <p>
+        <textarea class="modaltextarea" name='text' rows="10" cols="70"></textarea></p>
+        <p>
+    </form>
+    <button class="buttonmodal" id="send_feedback" onclick="
+        sendFeedback('feedbackForm')">
+        Send</button>
+    </p>
+    <p class="modalText">Thank you for using Linx<sup>beta</sup> - new features are on the way!</p>
+    <p class="modalText">- The Linx Team</p>
+  </div>
+</div>
+</div>

@@ -1,0 +1,90 @@
+html{
+	margin:0px;
+	font-size:14px;
+
+}
+
+.section-intro {
+	width:100vw;
+	height:100vh;
+	overflow:hidden;
+	position:fixed;
+	top:0;
+	left:0;
+	z-index: 10;
+	color:#fff;
+}
+
+.wiper{
+	position: absolute; 
+	width: 2980.8px; 
+	height: 2980.8px; 
+	top: -1491.4px; 
+	left: -842.4px; 
+	display: block; 
+	opacity:0.8;
+	z-index:5;
+}
+
+#wiper {
+	opacity:1;
+	position:absolute;
+	z-index:2;
+}
+
+#wiper circle {
+fill:transparent;
+}
+
+.reversed #wiper {
+	-webkit-transform:scaleX(-1);
+	-moz-transform:scaleX(-1);
+	-o-transform:scaleX(-1);
+	-ms-transform:scaleX(-1);
+	transform:scaleX(-1);
+}
+
+.background{
+	background: #95ead3;
+	position: fixed;
+	top:0;
+	left:0;
+	z-index: -1;
+	width: 100vw;
+	height:100vh;
+}
+
+.backgroundcover{
+	background: #000f1c;
+	opacity: 0.95;
+	position: fixed;
+	top:0;
+	left:0;
+	z-index: 0;
+	width: 100vw;
+	height:100vh;
+}
+
+.introspace{
+	width:100vw;
+	position:absolute;
+	top:0;
+	left:0;
+}
+
+.slide-1{
+	color:#fff;
+	width:100vw;
+	height:100vh;
+	position: fixed;
+	top:0;
+	left:0;
+	z-index: 10;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.wrapper{
+	width:100vw;
+	height:100vh;
+}

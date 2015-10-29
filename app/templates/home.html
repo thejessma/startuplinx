@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title> startupLinx </title>
+
+
+        <meta name ="keywords" content ="StartupLinx, startup, connect, find, job">
+        <meta name="description" content="Connect with Startups">
+        
+        <!-- Facebook open graph metatags -->
+        <meta property="og:title" content="startupLinx"/>
+        <meta property="og:image" content="{{ url_for('static', filename='img/discoverscreen_fb.jpg', _external=True) }}"/>
+        <meta property="og:site_name" content="startupLinx"/>
+        <meta property="og:description" content="Connect with Startups"/>  
+		
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/homepage.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/modal.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/animate.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style2.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main2.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/homepage.css') }}">
+
+</head>
+<body>
+
+  {% include 'google_anal_tag.html' %}
+  <div class="section-intro">
+
+    <div class="wrap">
+        
+        <svg id="wiper" class="wiper">
+
+          <defs>
+            <linearGradient id="grad" x1="0" x2="0" y1="0" y2="100%">
+              <stop offset="0%" stop-color="#29ff89" stop-opacity="1"></stop>
+              <stop offset="50%" stop-color="#29ffb1" stop-opacity="1"></stop>
+              <stop offset="100%" stop-color="#2997ff" stop-opacity="1"></stop>
+            </linearGradient>
+          </defs>
+          
+            <path transform="scale(29.8079999999) translate(0,0)" d="M 50 50 L 100.00 50.00 A 50 50 0.00 1 0 25.00 93.30 Z" fill="url(#grad)"></path>
+          
+        </svg>
+
+    </div>
+
+</div>
+
+<!--for the FEED-->
+<div id="bkgd" class="background">
+
+     <img src="{{ url_for('static', filename='img/discoverscreen_1.png') }}" class="bkgd_cards">
+</div>
+
+<div class="backgroundcover">
+</div>
+
+<div id ="wrap" class="introspace">
+
+        <div id="slide1-1" class="slide-1" >
+            <div class="wrapper">
+
+                <div class="logo-top">
+                    <img class="logo" src="{{ url_for('static', filename='img/logo.gif') }}">
+                </div>
+
+            </div>
+        </div>
+
+
+          <div id="slide1-2" class="slide-1"> 
+
+            <div class="wrapper">
+
+                  <div class="linxlogo">
+                  </div>
+
+                  <div class="logotext"> 
+                    <p class="meetjob">
+                    meet your<br>
+                    dream job
+                    </p>
+                    <a href="#linkedinLoginModal">
+
+                        <div class="joinmini">
+                            <div class="joinbottommini">
+                            </div>
+                            <div class="jointopmini">
+                                JOIN LINX
+                              </div>
+                        </div>
+                    </a>
+
+
+                    <p class="navigate"> SCROLL TO LEARN MORE</p>
+
+                  </div>
+          </div>
+        </div>
+          <div id="slide2" class="slide-2">
+
+            <div class="wrapper">
+              <div class="phrase2">
+                <p>you have earned the right<br> 
+                  to a career you're passionate about<br></p>
+              </div>
+              
+            </div>
+          </div>
+          <div  id="slide3" class="slide-3">                          
+            <div class="phrase2">
+                <span>we empower you to achieve that goal</span>
+              </div>
+             
+        </div>
+        
+</div>
+
+<div class="content-sections">
+
+        <div class="solution" style="padding-top:150px;">
+
+            <div class="titlesolution">
+                THE LINX SOLUTION
+            </div>
+
+            <div class="titleline">
+            </div>
+
+            <div class="subtitle">
+              How startupLinx flips the recruiting model to favor <em>you</em>:
+            </div>
+
+            <div class="solutioncol solutioncol1">
+                
+                <img class="solutionimg1" src="{{ url_for('static', filename='img/solutionicon1.gif') }}"> 
+                <div class="solutionimg">
+                    
+                    DISCOVER
+                </div>
+                <div class="solutiontext">
+                    Browse startups where your friends have worked - so you can be sure these are the best!
+                </div>
+            </div>
+
+
+            <div class="solutioncol solutioncol2">
+                <img class="solutionimg2" src="{{ url_for('static', filename='img/solutionicon2.gif') }}">
+                <div class="solutionimg"> 
+                    
+                    CONNECT
+                </div>
+                <div class="solutiontext">
+                    Find a startup that fits your criteria - filter by investment, funding round, location, you name it! 
+                </div>
+            </div>
+
+            <div class="solutioncol solutioncol3">
+                <img class="solutionimg3" src="{{ url_for('static', filename='img/solutionicon3.gif') }}">
+                <div class="solutionimg">
+                
+                    GET REFERRED
+                </div>
+                <div class="solutiontext">
+                    Message a friend to learn about opportunities and get referred. Your friends want to help you!
+                </div>
+            </div>
+        </div>
+
+    <div class="discover1">
+
+        <div class="phrase5">
+          let us show you
+          <em style="color:#a7e8d4">your</em> advantage
+        </div>
+
+    </div>
+
+    <div class="discover2" >
+    </div>
+
+    <div  id="pin"  class="solution-section">
+
+            <div class="featurelaptop">
+                
+
+                    <img src="{{ url_for('static', filename='img/topmacbook.png') }}" class="mockupimg top-mockup">
+
+
+                    <div class="screenmockup">
+
+                        <div id="screen" class="screens">
+                            
+                            <div class="discover_1">
+                                <img src="{{ url_for('static', filename='img/discoverscreen_1.png') }}" class="discoverscreen_">
+                            </div> 
+
+                            <div class="discover_2" id="connect_screen">
+                                <img src="{{ url_for('static', filename='img/discoverscreen_2.png') }}" class="discoverscreen_">
+
+                            </div>
+
+                        </div>
+                    <img src="{{ url_for('static', filename='img/middlemacbook.png') }}" class=" mockupimg-screen">
+                    
+                        
+
+                    </div>
+                <img src="{{ url_for('static', filename='img/bottommacbook.png') }}" class="bottom-mockup mockupimg">
+                
+            </div>
+
+            <div id="dis_text" class="featuretext" >
+
+                <div class="container">
+                    
+                        <div class="discoverbkgd">
+                                <img src="{{ url_for('static', filename='img/discover_1.png') }}" class="discoverbkgd" style="opacity:1">
+                        </div>
+
+                        <div class="titlediscover"> Discover 
+                        </div>
+                        
+                        <p class="discoverp"> Based on your preferences, scroll through your Linx feed and scan startup mission, funding rounds, or investors. Linx shows you only startups that your friends deem the best!</p>
+                </div>
+            </div>
+
+            <div id="wipe">
+                <div class="container">
+                    <div class="featuretext">
+                        
+                        <div class="discoverbkgd">
+                            <img src="{{ url_for('static', filename='img/discover_2.png') }}" class="discoverbkg" >
+                        </div>
+
+            
+                        <div class="titlediscover"> Connect
+                        </div>
+
+                        <p class="discoverp">
+                        Get an insider's scoop on a startup's growth and culture through friends. They want their startup to recruit people they trust - they'll give you the honest truth and help you along the way!</p>
+                    </div>
+
+                </div>
+            </div>
+
+                    
+                    <div class="discoverimg">
+                        <div class="screenimgwrapper active-slide">
+                            <img src="{{ url_for('static', filename='img/6_thumb.png') }}" class="screenimg">
+                        </div>
+                    </div>
+
+    </div>
+
+    
+            
+
+    <div class="mockbkgd">
+
+            <div class="mocktext">
+
+                <div class="mocktitle">
+                GET LINXED
+                </div>
+
+                <div class="mocksubs">Built by students for students, Linx bypasses recruiters to help you discover and connect with your dream startup. Instead of casting your resume into the abyss, let Linx help you find friends who work there to get a quick intro!
+                </div>
+
+            </div>
+
+            <img class="mockbkgd" src="{{ url_for('static', filename='img/mockbkgd.png') }}">
+
+    </div>
+
+    <div class="footerhome">
+
+        <a href="#linkedinLoginModal">
+
+                <div class="join">
+                  <div class="joinbottom">
+                    JOIN LINX
+                  </div>
+                   <div class="jointop">
+                        JOIN LINX
+                      </div>
+                    </div>
+                       
+            </a>
+     
+                <div class="footerline">
+                    
+                </div>
+
+                <div class="basicheader">
+                    <img src="{{ url_for('static', filename='img/logo.gif') }}" class="headerlogo">
+
+                    <div class="navigationheader">
+
+                        <div class="learnmoreheader">
+
+                            <a class="nodecor" href="{{ url_for('about') }}">ABOUT</a>
+
+                        </div>
+                        <div class="learnmoreheader">
+                            <a class="nodecor" href="#openModal_feedback">CONTACT US</a>
+                        </div>
+
+                    </div>
+
+                    <div class="copyright">
+
+                    Copyright &#9400 2014 startupLinx. Born and raised in San Francisco, California.
+
+                    </div>
+
+                </div>
+
+    </div>
+  
+</div>
+
+   {% include 'feedback_modal.html' %}
+    {% include 'login_modal.html' %}
+    <script src="{{ url_for('static', filename='js/jquery-1.11.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tweenmax.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/waypoints.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.scrollmagic.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/api_helpers.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/pie.js') }}"></script>
+  </body>
+
+
+</html>

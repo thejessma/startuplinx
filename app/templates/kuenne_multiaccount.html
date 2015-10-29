@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div style='align:center; margin-top: 70px;'>
+    <h1>VIP Power User Multilogin</h1>
+    <h2>Welcome, {{ current_user.first_name }}!</h2>
+</div>
+
+{% for app_idx in app_indexes %}
+    <p>
+        <strong>Linkedin App Id #{{ app_idx }}:</strong>
+        {% if app_idx in linkedin_tokens %}
+            token = {{ linkedin_tokens[app_idx] }}
+        {% else %}
+            <a href="{{ url_for('kuenne_multilogin', app_idx=app_idx) }}"><img src="{{ url_for('static', filename='img/linkedin.gif') }}" class="linkedinmodal"></a>
+        {% endif %}
+    </p>
+{% endfor %}
+
+{% endblock %}

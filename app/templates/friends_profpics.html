@@ -1,0 +1,15 @@
+{% set friend_idx = 0 %}
+{% for friend in company['friends'] %}
+    {% set friend_idx = friend_idx + 1 %}
+    {% if friend_idx == 4 and company['friends']|length > 4 %}
+		<div class="friendslast">
+			<img class="friendslast" src="{{ friend['picture_url'] }}">
+			<h1 class="friendsfilter">
+				+{{ company['friends']|length - 3 }}
+			</h1>
+		</div>
+		{% break %}
+    {% else %}
+    <img class="friends" src="{{ friend['picture_url'] }}">
+    {% endif %}
+{% endfor %}
